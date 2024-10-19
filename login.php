@@ -8,7 +8,7 @@ function canLogin($p_email, $p_password){
 		return false;
 	}
 }
-//wanneer gfaan we pas inloggen
+//wanneer gaan we pas inloggen
 if(!empty($_POST)){
 	$email = $_POST['email'];
 	$password = $_POST['password'];
@@ -38,7 +38,7 @@ if(!empty($_POST)){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Log in</title>
 </head>
 <body>
 <div class="netflixLogin">

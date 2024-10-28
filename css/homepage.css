@@ -1,0 +1,69 @@
+body {
+    background-color: #333; /* Donkere achtergrond voor body */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #f4f4f4; /* Lichte achtergrond voor de header */
+    color: #333; /* Donkere tekstkleur voor contrast */
+    text-align: center;
+    padding: 20px;
+}
+
+/* Grid instellen voor de producten */
+.products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Drie kolommen van gelijke breedte */
+    gap: 30px; /* Meer ruimte tussen de producten */
+    margin-top: 20px;
+}
+
+.product {
+    background-color: rgba(255, 255, 255, 0.8); /* Iets doorzichtig */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: auto; /* Center het product in de grid */
+}
+
+.image {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.details {
+    width: 100%;
+}
+
+.titel {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.prijs {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.btn {
+    background-color: #ff0000; /* Rode knop */
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+    background-color: #cc0000; /* Donkerder rood bij hover */
+    transform: scale(1.05);
+}

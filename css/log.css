@@ -1,0 +1,90 @@
+body {
+    background-image: url(../images/Leonardo_Phoenix_kijk_kan_je_voor_een_background_image_maken_v_1.jpg);
+    background-color: #1F2020;
+    background-repeat: no-repeat;
+    background-size: contain; /* Verklein de afbeelding om volledig in het scherm te passen */
+    background-position: center center;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+
+.form {
+    background-color: rgba(250, 255, 255, 0.2); /* Iets minder doorzichtig voor beter contrast */
+    border: none; /* Geen grijze kader voor een schoner uiterlijk */
+    border-radius: 15px; /* Iets afgeronde hoeken */
+    padding: 30px; /* Meer ruimte binnenin het formulier */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8); /* Diepere schaduw voor diepte */
+    width: 90%; /* Formulierbreedte aanpassen */
+    max-width: 400px; /* Max breedte van het formulier */
+    display: flex; /* Flexbox om de inhoud te centreren */
+    flex-direction: column; /* Alle elementen onder elkaar */
+    align-items: center; /* Elementen in het midden uitlijnen */
+}
+
+.form__field {
+    width: 100%; /* Breedte van de form velden 100% van de container */
+    margin-bottom: 20px; /* Ruimte tussen de velden vergroten */
+}
+
+.form__field label {
+    display: block;
+    margin-bottom: 8px; /* Iets meer ruimte boven labels */
+    font-weight: bold;
+    color: #333; /* Donkere kleur voor labels voor beter contrast */
+    text-align: left; /* Labels links uitlijnen */
+}
+
+.form__field input[type="text"],
+.form__field input[type="password"] {
+    width: 100%; /* Volledige breedte van de container */
+    padding: 12px; /* Meer padding voor comfort */
+    border: 1px solid #ccc; /* Lichte rand om velden */
+    border-radius: 8px; /* Hoekafgeronde invoervelden */
+    font-size: 16px;
+    margin-top: 5px;
+    transition: border-color 0.3s; /* Overgang voor borderkleur */
+}
+
+.form__field input[type="text"]:focus,
+.form__field input[type="password"]:focus {
+    border-color: #ff0000; /* Rode rand bij focus */
+    outline: none; /* Geen standaard focusoutline */
+}
+
+.btn--primary {
+    background-color: #ff0000; /* Knopkleur */
+    color: #fff;
+    border: none;
+    border-radius: 8px; /* Hoekafgeronde knoppen */
+    padding: 12px; /* Meer padding voor knoppen */
+    font-size: 18px;
+    cursor: pointer;
+    width: 100%; /* Knopbreedte aangepast aan het formulier */
+    transition: background-color 0.3s, transform 0.2s; /* Overgang voor achtergrondkleur en schaling */
+    text-align: center; /* Tekst in de knop centreren */
+}
+
+.btn--primary:hover {
+    background-color: #cc0000; /* Donkere kleur bij hover */
+    transform: scale(1.05); /* Kleinere schaling bij hover voor effect */
+}
+
+.label__inline {
+    font-size: 14px;
+    color: #fff;
+    margin-left: 5px;
+}
+
+.form__error {
+    background-color: #ff3333;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}

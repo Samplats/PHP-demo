@@ -1,14 +1,30 @@
 <?php
 
-function canLogin($p_email, $p_password){
-	if($p_email ==="sam" && $p_password==="12345"){
-		return true;
+function canLogin($email, $password){
+
+	$conn = new PDO('mysql:host=localhost;dbname=webshop', 'root', '',);
+	$statement = $conn->prepare ('SELECT * FROM inloggen WHERE email = :email');
+	$statement->bindValue(':email', $email);
+	$statement->execute();
+
+	$user = 	$statement->fetch(PDO::FETCH_ASSOC);
+	
+	if($user){
+		$hash = $user['password'];
+		if (password_verify($password,$hash)){
+			return true;
+
+		}
+		else{
+			return false;
+		}
+
 	}
 	else{
 		return false;
 	}
-}
-//wanneer gaan we pas inloggen
+} 
+//wanneer gfaan we pas inloggen
 if(!empty($_POST)){
 	$email = $_POST['email'];
 	$password = $_POST['password'];
@@ -33,18 +49,21 @@ if(!empty($_POST)){
 }
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in</title>
+    <link rel="stylesheet" href="css/log.css">
 </head>
 <body>
 <div class="netflixLogin">
 		<div class="form form--login">
 			<form action="" method="post">
-				<h2 form__title>Sign In</h2>
+				<h2 form__title>Log in</h2>
 				<?php if(isset($error) ):?>
 
 				<div class="form__error">
@@ -63,7 +82,7 @@ if(!empty($_POST)){
 				</div>
 
 				<div class="form__field">
-					<input type="submit" value="Sign in" class="btn btn--primary">	
+					<input type="submit" value="Log in" class="btn btn--primary">	
 					<input type="checkbox" id="rememberMe"><label for="rememberMe" class="label__inline">Remember me</label>
 				</div>
 			</form>

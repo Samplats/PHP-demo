@@ -1,41 +1,54 @@
 <?php
+<?php
+function canLogin($email, $password){
 
-	function canLogin($email, $password){
-		$salt = "qsdfghjklm";
-		$conn = new mysqli('localhost', 'root', '', 'netflix');
-		$hash = md5($password.$salt);
-		$sql = "select * from gegevens where email = '$email' and password = '$hash'";
-		$result = $conn->query($sql);
-		if($result->num_rows == 1){
+	$conn = new PDO('mysql:host=localhost;dbname=webshop', 'root', '',);
+	$statement = $conn->prepare ('SELECT * FROM inloggen WHERE email = :email');
+	$statement->bindValue(':email', $email);
+	$statement->execute();
+
+	$user = 	$statement->fetch(PDO::FETCH_ASSOC);
+	
+	if($user){
+		$hash = $user['password'];
+		if (password_verify($password,$hash)){
 			return true;
+
 		}
 		else{
 			return false;
 		}
+
 	}
-
-
-
-	// wanneer gaan we pas inloggen
-	if(!empty($_POST)){
-		$email = $_POST['email'];
-		$password = $_POST['password'];
-
-		if(canLogin($email, $password)){
-
-			session_start();
-			$_SESSION['loggedin'] = true;
-			$_SESSION['email'] = $email;
-
-
-			header('Location: index.php');
-			exit();
-		}else{
-			$error = true;
-		}
-		
+	else{
+		return false;
 	}
+} 
+//wanneer gfaan we pas inloggen
+if(!empty($_POST)){
+	$email = $_POST['email'];
+	$password = $_POST['password'];
 
+	//$result = canLogin($email,$password)
+	if (canLogin($email,$password)){
+		session_start();
+		$_SESSION['loggedin'] = true;
+		$_SESSION['email'] = $email;
+		//$salt = "312E3REFGREFVDER424444";
+		//OK
+		//$cookieValue = $email . "," . md5 ($email.$salt);
+		//echo $cookieValue;
+	//exit();
+		//setcookie("login", $cookieValue, time()+60*60*24*30);
+		header('Location: index.php');
+	}
+	else{
+		$error =true;
+	}
+ //echo $email; nu wordt de echo gebruikt als consolelog 
+}
+
+?>
 ?><!DOCTYPE html>
 <html lang="en">
 <head>

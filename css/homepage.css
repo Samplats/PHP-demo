@@ -5,8 +5,17 @@ body {
     padding: 0;
 }
 
+
 nav a {
     text-decoration: none;
+    color: white; /* Maak de tekst wit voor betere leesbaarheid tegen een donkere achtergrond */
+    padding: 10px 15px; /* Extra padding rondom de links */
+    border-radius: 5px; /* Voeg afgeronde hoeken toe aan de links */
+    transition: background-color 0.3s; /* Voeg een overgang toe voor hover-effect */
+}
+
+nav a:hover {
+    background-color: #555; /* Verander de achtergrondkleur bij hover voor een visueel effect */
 }
 
 header {

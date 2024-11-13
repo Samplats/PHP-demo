@@ -5,6 +5,12 @@ body {
     padding: 0;
 }
 
+nav {
+    display: flex;
+    justify-content: center; /* Centraal uitlijnen van de navigatielinks */
+    gap: 20px; /* Ruimte tussen de links */
+    padding: 10px 0; /* Extra ruimte boven en onder de navigatie */
+}
 
 nav a {
     text-decoration: none;

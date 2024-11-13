@@ -5,11 +5,16 @@ body {
     padding: 0;
 }
 
+nav a {
+    text-decoration: none;
+}
+
 header {
     background-color: #f4f4f4; /* Lichte achtergrond voor de header */
     color: #333; /* Donkere tekstkleur voor contrast */
     text-align: center;
     padding: 20px;
+    
 }
 
 /* Grid instellen voor de producten */

@@ -2,16 +2,13 @@
 session_start();
 if ($_SESSION['loggedin'] !== true) {
     header('Location: login.php');
-    exit; // Voeg exit toe om verdere uitvoering te stoppen
+    exit; // Voorkomt verdere uitvoering na redirect
 }
 
-if (empty($_GET)) {
-    $option = "all"; // Standaard waarde
-} elseif (isset($_GET['option'])) {
-    $option = $_GET['option']; // URL ?option=
-}
+// Standaard "all" instellen als er geen optie is
+$option = $_GET['option'] ?? 'all';
 
-// Array met meerdere schoenproducten
+// Array met producten
 $products = [
     [
         'title' => 'ANTA KAI 1',
@@ -87,9 +84,27 @@ $products = [
     ],
     [
         "title" => "Wilson",
-        "option" => "basketballen ",
+        "option" => "basketballen",
         "price" => 39.99,
         "image" => "https://target.scene7.com/is/image/Target/GUEST_20affc7e-e0d7-4eb6-a6f3-68d13520f8be?wid=488&hei=488&fmt=pjpeg" // Vervang deze door een echte URL
+    ],
+    [
+        "title" => "Tarmak",
+        "option" => "basketballen",
+        "price" => 29.99,
+        "image" => "https://contents.mediadecathlon.com/p2154421/k$1c4bb46d855d4303ac9a44f4f00b2d92/sq/bbeb5bc7-be16-4b36-8089-8afa6e7a75ec.jpg?format=auto&f=800x0" // Vervang deze door een echte URL
+    ],
+    [
+        "title" => "Molten",
+        "option" => "basketballen",
+        "price" => 49.99,
+        "image" => "https://cdn.webshopapp.com/shops/8898/files/428582418/356x473x2/molten-bg3000-indoor-outdoor.jpg" // Vervang deze door een echte URL
+    ],
+    [
+        "title" => "Spalding",
+        "option" => "basketballen",
+        "price" => 39.99,
+        "image" => "https://www.delsport.com/Cached/378080/canvas/510x765/37103759_0.jpg" // Vervang deze door een echte URL
     ],
 ];
 ?>
@@ -103,30 +118,30 @@ $products = [
 </head>
 <body>
     <header>
-        <h1>Welkom op GearUp</h1> <!-- Dit blijft hetzelfde -->
+        <h1>GearUp</h1>
     </header>
 
     <nav>
-        <a href="index.php?Option=alles">Alles</a>
-        <a href="index.php?Option=Schoenen">Schoenen</a>
-        <a href="index.php?Option=Tassen">Tassen</a>
-        <a href="index.php?Option=Basketballen">Basketballen</a>
-
+       
+        <a href="index.php?option=all">Alles</a>
+        <a href="index.php?option=schoenen">Schoenen</a>
+        <a href="index.php?option=tassen">Tassen</a>
+        <a href="index.php?option=basketballen">Basketballen</a>
     </nav>
-    
+
     <main>
         <section class="products">
-            <?php foreach($products as $product): ?>
-            <article class="product">
-                <div class="image" style="background-image: url('<?php echo $product['image']; ?>')">
-                    <!-- De afbeelding van de schoen -->
-                </div>
-                <div class="details">
-                    <h2 class="titel"><?php echo $product['title']; ?></h2>
-                    <p class="prijs">Prijs: €<?php echo number_format($product['price'], 2); ?></p>
-                    <button class="btn">Voeg toe aan winkelwagentje</button>
-                </div>
-            </article>
+            <?php foreach ($products as $product): ?>
+                <?php if ($option === 'all' || $option === $product['option']): ?>
+                    <article class="product">
+                        <div class="image" style="background-image: url('<?php echo $product['image']; ?>')"></div>
+                        <div class="details">
+                            <h2 class="titel"><?php echo $product['title']; ?></h2>
+                            <p class="prijs">Prijs: €<?php echo number_format($product['price'], 2); ?></p>
+                            <button class="btn">Voeg toe aan winkelwagentje</button>
+                        </div>
+                    </article>
+                <?php endif; ?>
             <?php endforeach; ?>
         </section>
     </main>

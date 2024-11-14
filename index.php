@@ -119,6 +119,10 @@ $products = [
 <body>
     <header>
         <h1>GearUp</h1>
+        <div class= "icons">
+        <img src="images/3917688.png" alt="">
+        <img src="images/shopping-bag.svg" alt="">
+        </div>
     </header>
 
     <nav>

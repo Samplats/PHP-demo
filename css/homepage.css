@@ -5,6 +5,22 @@ body {
     padding: 0;
 }
 
+header {
+    display: flex;
+    justify-content: space-between; /* Plaatst items aan uiterste zijden */
+    align-items: center; /* Centreert items verticaal */
+
+}
+
+.icons {
+    display: flex;
+    gap: 60px; /* Ruimte tussen de iconen */
+}
+
+header img {
+    width: 35px;
+}
+
 nav {
     display: flex;
     justify-content: center; /* Centraal uitlijnen van de navigatielinks */

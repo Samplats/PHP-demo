@@ -45,6 +45,7 @@ try {
         <div class= "icons">
         <img src="images/user.svg" alt="">
         <img src="images/shopping-bag.svg" alt="">
+        <a href="logout.php" class="logout">Uitloggen</a> 
         </div>
     </header>
 
@@ -54,6 +55,7 @@ try {
         <a href="index.php?option=schoenen">Schoenen</a>
         <a href="index.php?option=tassen">Tassen</a>
         <a href="index.php?option=basketballen">Basketballen</a>
+        <a href="index.php?option=accessoires">Accessoires</a>
     </nav>
 
     <main>

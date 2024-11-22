@@ -1,34 +1,32 @@
 <?php
 session_start();
 
-// Check if the user is logged in
-if ($_SESSION['loggedin'] !== true) {
+// Controleer of de gebruiker is ingelogd
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header('Location: login.php');
     exit;
 }
 
-// Database connection details
-$host = 'localhost'; // Your MySQL server
-$dbname = 'webshop'; // Your database name
-$username = 'root'; // Your MySQL username
-$password = ''; // Your MySQL password
+// Databaseverbinding details
+$host = 'localhost'; // Jouw MySQL-server
+$dbname = 'webshop'; // Naam van jouw database
+$username = 'root'; // Jouw MySQL-gebruikersnaam
+$password = ''; // Jouw MySQL-wachtwoord
 
 try {
-    // Create a PDO instance (connect to the database)
+    // Verbind met de database
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-
-    // Set PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Fetch products from the database
-    $stmt = $conn->prepare("SELECT nam, price, image_url FROM products");
+    // Haal producten op uit de database
+    $stmt = $conn->prepare("SELECT id, nam, price, image_url FROM products");
     $stmt->execute();
 
-    // Fetch all products as an associative array
+    // Haal alle producten op als associatieve array
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+    echo "Verbinding mislukt: " . $e->getMessage();
 }
 ?>
 <!DOCTYPE html>
@@ -42,35 +40,36 @@ try {
 <body>
     <header>
         <h1>GearUp</h1>
-        <div class= "icons">
-        <img src="images/user.svg" alt="">
-        <img src="images/shopping-bag.svg" alt="">
-        <a href="logout.php" class="logout">Uitloggen</a> 
+        <div class="icons">
+            <img src="images/user.svg" alt="Gebruiker">
+            <img src="images/shopping-bag.svg" alt="Winkelmandje">
+            <a href="logout.php" class="logout">Uitloggen</a> 
         </div>
     </header>
 
     <nav>
-       
         <a href="index.php?option=all">Alles</a>
         <a href="index.php?option=schoenen">Schoenen</a>
         <a href="index.php?option=tassen">Tassen</a>
         <a href="index.php?option=basketballen">Basketballen</a>
+        <a href="index.php?option=accessoires">Tenues</a>
         <a href="index.php?option=accessoires">Accessoires</a>
     </nav>
 
     <main>
         <section class="products">
             <?php foreach ($products as $product): ?>
-              
-                    <article class="product">
-                        <div class="image" style="background-image: url('<?php echo $product['image_url']; ?>')"></div>
-                        <div class="details">
-                            <h2 class="titel"><?php echo $product['nam']; ?></h2>
-                            <p class="prijs">Prijs: €<?php echo number_format($product['price'], 2); ?></p>
-                            <button class="btn">Voeg toe aan winkelwagentje</button>
-                        </div>
-                    </article>
-        
+                <article class="product">
+                    <!-- Klikbare afbeelding -->
+                    <a href="detail.php?id=<?php echo $product['id']; ?>" class="image-link">
+                        <div class="image" style="background-image: url('<?php echo htmlspecialchars($product['image_url']); ?>');"></div>
+                    </a>
+                    <div class="details">
+                        <h2 class="titel"><?php echo htmlspecialchars($product['nam']); ?></h2>
+                        <p class="prijs">Prijs: €<?php echo number_format($product['price'], 2); ?></p>
+                        <button class="btn">Voeg toe aan winkelwagentje</button>
+                    </div>
+                </article>
             <?php endforeach; ?>
         </section>
     </main>

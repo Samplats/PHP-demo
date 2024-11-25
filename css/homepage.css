@@ -161,86 +161,42 @@ nav a:hover {
     transform: scale(1.05);
 }
 
-/* Responsieve styling voor tablets en mobiele apparaten */
+/* Media Queries voor Responsiviteit */
 
-/* Tabletversie (max-width: 1024px) */
-@media (max-width: 1024px) {
-    header {
-        flex-direction: row; /* Zorg ervoor dat de header-items naast elkaar blijven */
-        justify-content: space-between; /* Genereer ruimte tussen de elementen */
-    }
-
-    .header-search-container {
-        flex-grow: 1;
-        margin: 0 15px;
-    }
-
+/* Tabletweergave (max breedte 1045px) */
+@media (max-width: 1045px) {
     .header-search-input {
-        width: 70%; /* De zoekbalk neemt nu 70% van de ruimte in */
-    }
-
-    .icons {
-        margin-top: 10px;
-        gap: 15px; /* Verklein de ruimte tussen de iconen op tablets */
-    }
-
-    nav {
-        flex-direction: row; /* Hou de navigatie-items horizontaal */
-        justify-content: center;
-        gap: 30px; /* Verhoog de ruimte tussen de navigatie-items */
+        width: 70%; /* Zoekbalk breder op tablet */
+        margin-left: 0; /* Verwijder margin voor betere uitlijning */
     }
 
     .products {
-        grid-template-columns: repeat(2, 1fr); /* Twee kolommen voor tablets */
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Meer kolommen met kleinere producten */
+    }
+
+    .image {
+        height: 150px; /* Kleinere afbeeldingen op tablets */
     }
 }
 
-/* Mobiele versie (max-width: 480px) */
+/* Mobiele weergave (max breedte 480px) */
 @media (max-width: 480px) {
-    /* Header instellingen voor mobiel */
     header {
-        flex-direction: column;
-        align-items: center; /* Centreer alles in de header */
-        text-align: center;
-        gap: 20px; /* Ruimte tussen de header-items */
-    }
-
-    .header-search-container {
-        margin: 0 20px;
+        flex-direction: column; /* Stapel header-items verticaal */
+        align-items: center;
+        gap: 15px;
     }
 
     .header-search-input {
-        width: 80%; /* Zoekbalk breder maken op mobiele apparaten */
-    }
-
-    .icons {
-        flex-direction: row;
-        gap: 15px; /* Ruimte tussen de iconen */
-    }
-
-    nav {
-        flex-direction: column; /* Stapel de navigatie-items voor mobiel */
-        align-items: center;
-        gap: 15px; /* Ruimte tussen de nav-items */
+        width: 90%; /* Zoekbalk breder op mobiel */
+        padding: 8px; /* Kleinere padding */
     }
 
     .products {
-        grid-template-columns: 1fr; /* Eén kolom voor mobiel */
+        grid-template-columns: 1fr; /* Eén kolom op mobiel */
     }
 
-    .product {
-        padding: 10px;
-    }
-
-    .titel {
-        font-size: 16px;
-    }
-
-    .prijs {
-        font-size: 14px;
-    }
-
-    .btn {
-        padding: 8px 12px; /* Kleinere knop op mobiel */
+    .image {
+        height: 120px; /* Kleinere afbeeldingen op mobiel */
     }
 }

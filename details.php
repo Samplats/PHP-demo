@@ -40,23 +40,29 @@ try {
 <body>
     <header>
         <h1>GearUp</h1>
+
+        <!-- Zoekbalk toevoegen -->
+        <div class="header-search-container">
+            <form class="header-search-form" action="search.php" method="get">
+                <input type="text" name="query" class="header-search-input" placeholder="Zoeken...">
+            </form>
+        </div>
+
         <div class="icons">
-        <img src="images/user.svg" alt="Gebruiker">
-                <img src="images/shopping-bag.svg" alt="Winkelmandje">
-                <a href="logout.php" class="logout">Uitloggen</a>
+            <img src="images/user.svg" alt="Gebruiker">
+            <img src="images/shopping-bag.svg" alt="Winkelmandje">
+            <a href="logout.php" class="logout">Uitloggen</a>
         </div>
     </header>
 
     <main>
         <div class="detail-container">
-        <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="Product Image" class="product-image">
+            <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="Product Image" class="product-image">
            
             <div class="product-info">
                 <h2><?php echo htmlspecialchars($product['nam']); ?></h2>
                 <p class="product-price">Prijs: €<?php echo number_format($product['price'], 2); ?></p>
                 <h2><?php echo htmlspecialchars($product['description']); ?></h2>
-
-             
                 <button class="btn">Voeg toe aan winkelwagentje</button>
             </div>
         </div>

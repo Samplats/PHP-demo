@@ -8,21 +8,28 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 }
 
 // Databaseverbinding details
-$host = 'localhost'; // Jouw MySQL-server
-$dbname = 'webshop'; // Naam van jouw database
-$username = 'root'; // Jouw MySQL-gebruikersnaam
-$password = ''; // Jouw MySQL-wachtwoord
+$host = 'localhost';
+$dbname = 'webshop';
+$username = 'root';
+$password = '';
 
 try {
     // Verbind met de database
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Haal producten op uit de database
-    $stmt = $conn->prepare("SELECT id, nam, price, image_url FROM products");
+    // Controleer of er een zoekopdracht is
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = "%" . $_GET['search'] . "%";
+        $stmt = $conn->prepare("SELECT id, nam, price, image_url FROM products WHERE nam LIKE :search");
+        $stmt->bindParam(':search', $search, PDO::PARAM_STR);
+    } else {
+        // Geen zoekopdracht, haal alle producten op
+        $stmt = $conn->prepare("SELECT id, nam, price, image_url FROM products");
+    }
+
     $stmt->execute();
 
-    // Haal alle producten op als associatieve array
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } catch (PDOException $e) {
@@ -39,13 +46,20 @@ try {
 </head>
 <body>
     <header>
-        <h1>GearUp</h1>
-        <div class="icons">
-            <img src="images/user.svg" alt="Gebruiker">
-            <img src="images/shopping-bag.svg" alt="Winkelmandje">
-            <a href="logout.php" class="logout">Uitloggen</a> 
-        </div>
-    </header>
+    <h1>GearUp</h1>
+    <!-- Zoekfunctie container voor middenuitlijning -->
+    <div class="header-search-container">
+        <form method="GET" action="index.php" class="header-search-form">
+            <input type="text" name="search" placeholder="Zoeken..." class="header-search-input">
+        </form>
+    </div>
+
+    <div class="icons">
+        <img src="images/user.svg" alt="Gebruiker">
+        <img src="images/shopping-bag.svg" alt="Winkelmandje">
+        <a href="logout.php" class="logout">Uitloggen</a>
+    </div>
+</header>
 
     <nav>
         <a href="index.php?option=all">Alles</a>
@@ -58,19 +72,22 @@ try {
 
     <main>
         <section class="products">
-            <?php foreach ($products as $product): ?>
-                <article class="product">
-                    <!-- Klikbare afbeelding -->
-                    <a href="detail.php?id=<?php echo $product['id']; ?>" class="image-link">
-                        <div class="image" style="background-image: url('<?php echo htmlspecialchars($product['image_url']); ?>');"></div>
-                    </a>
-                    <div class="details">
-                        <h2 class="titel"><?php echo htmlspecialchars($product['nam']); ?></h2>
-                        <p class="prijs">Prijs: €<?php echo number_format($product['price'], 2); ?></p>
-                        <button class="btn">Voeg toe aan winkelwagentje</button>
-                    </div>
-                </article>
-            <?php endforeach; ?>
+            <?php if (count($products) > 0): ?>
+                <?php foreach ($products as $product): ?>
+                    <article class="product">
+                        <a href="details.php?id=<?php echo $product['id']; ?>" class="image-link">
+                            <div class="image" style="background-image: url('<?php echo htmlspecialchars($product['image_url']); ?>');"></div>
+                        </a>
+                        <div class="details">
+                            <h2 class="titel"><?php echo htmlspecialchars($product['nam']); ?></h2>
+                            <p class="prijs">Prijs: €<?php echo number_format($product['price'], 2); ?></p>
+                            <button class="btn">Voeg toe aan winkelwagentje</button>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Geen producten gevonden.</p>
+            <?php endif; ?>
         </section>
     </main>
 </body>

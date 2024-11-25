@@ -41,18 +41,20 @@ try {
     <header>
         <h1>GearUp</h1>
         <div class="icons">
-            <a href="index.php"><img src="images/home.svg" alt="Home"></a>
-            <a href="logout.php" class="logout">Uitloggen</a>
+        <img src="images/user.svg" alt="Gebruiker">
+                <img src="images/shopping-bag.svg" alt="Winkelmandje">
+                <a href="logout.php" class="logout">Uitloggen</a>
         </div>
     </header>
 
     <main>
         <div class="detail-container">
-            <div class="product-image" style="background-image: url('<?php echo $product['image_url']; ?>');"></div>
+        <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="Product Image" class="product-image">
+           
             <div class="product-info">
                 <h2><?php echo htmlspecialchars($product['nam']); ?></h2>
                 <p class="product-price">Prijs: €<?php echo number_format($product['price'], 2); ?></p>
-                <p class="product-description"><?php echo htmlspecialchars($product['description']); ?></p>
+             
                 <button class="btn">Voeg toe aan winkelwagentje</button>
             </div>
         </div>

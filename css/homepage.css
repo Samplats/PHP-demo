@@ -15,17 +15,45 @@ header {
     background-color: #f4f4f4; /* Lichte achtergrond voor de header */
     padding: 20px;
     color: #333; /* Donkere tekstkleur */
+    flex-wrap: wrap; /* Zorgt ervoor dat items niet in één rij blijven als ze niet passen */
 }
 
+/* Toevoeging om de zoekfunctie in het midden te plaatsen */
+.header-search-container {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    margin: 0 20px; /* Voeg ruimte toe aan de zijkanten van de zoekfunctie */
+}
+
+.header-search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.header-search-input {
+    width: 100%; /* Maakt de zoekbalk volledig breed */
+    padding: 10px;
+    margin-right: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Ruimte tussen de iconen */
 .icons {
     display: flex;
-    gap: 80px; /* Ruimte tussen iconen */
+    gap: 20px; /* Verhoog de ruimte tussen de iconen */
+    align-items: center;
 }
 
+/* Iconen styling */
 header img {
     width: 35px; /* Uniforme grootte voor iconen */
 }
 
+/* Knop stijlen */
 .logout {
     color: red;
     font-weight: bold;
@@ -42,8 +70,9 @@ header img {
 nav {
     display: flex;
     justify-content: center;
-    gap: 20px; /* Ruimte tussen navigatielinks */
+    gap: 20px;
     padding: 10px 0;
+    flex-wrap: wrap; /* Zorg ervoor dat nav-items niet uit het scherm schuiven */
 }
 
 nav a {
@@ -107,18 +136,18 @@ nav a:hover {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 5px;
-    color: #333; /* Donkere tekst voor de titel */
+    color: #333;
 }
 
 .prijs {
     font-size: 16px;
-    color: #666; /* Neutrale kleur voor prijs */
+    color: #666;
     margin-bottom: 15px;
 }
 
 /* Knoppen styling */
 .btn {
-    background-color: #ff4500; /* Felle oranje knop */
+    background-color: #ff4500;
     color: #fff;
     border: none;
     padding: 10px 15px;
@@ -128,8 +157,90 @@ nav a:hover {
 }
 
 .btn:hover {
-    background-color: #cc3700; /* Donkerdere oranje tint bij hover */
-    transform: scale(1.05); /* Iets groter bij hover */
+    background-color: #cc3700;
+    transform: scale(1.05);
 }
 
+/* Responsieve styling voor tablets en mobiele apparaten */
 
+/* Tabletversie (max-width: 1024px) */
+@media (max-width: 1024px) {
+    header {
+        flex-direction: row; /* Zorg ervoor dat de header-items naast elkaar blijven */
+        justify-content: space-between; /* Genereer ruimte tussen de elementen */
+    }
+
+    .header-search-container {
+        flex-grow: 1;
+        margin: 0 15px;
+    }
+
+    .header-search-input {
+        width: 70%; /* De zoekbalk neemt nu 70% van de ruimte in */
+    }
+
+    .icons {
+        margin-top: 10px;
+        gap: 15px; /* Verklein de ruimte tussen de iconen op tablets */
+    }
+
+    nav {
+        flex-direction: row; /* Hou de navigatie-items horizontaal */
+        justify-content: center;
+        gap: 30px; /* Verhoog de ruimte tussen de navigatie-items */
+    }
+
+    .products {
+        grid-template-columns: repeat(2, 1fr); /* Twee kolommen voor tablets */
+    }
+}
+
+/* Mobiele versie (max-width: 480px) */
+@media (max-width: 480px) {
+    /* Header instellingen voor mobiel */
+    header {
+        flex-direction: column;
+        align-items: center; /* Centreer alles in de header */
+        text-align: center;
+        gap: 20px; /* Ruimte tussen de header-items */
+    }
+
+    .header-search-container {
+        margin: 0 20px;
+    }
+
+    .header-search-input {
+        width: 80%; /* Zoekbalk breder maken op mobiele apparaten */
+    }
+
+    .icons {
+        flex-direction: row;
+        gap: 15px; /* Ruimte tussen de iconen */
+    }
+
+    nav {
+        flex-direction: column; /* Stapel de navigatie-items voor mobiel */
+        align-items: center;
+        gap: 15px; /* Ruimte tussen de nav-items */
+    }
+
+    .products {
+        grid-template-columns: 1fr; /* Eén kolom voor mobiel */
+    }
+
+    .product {
+        padding: 10px;
+    }
+
+    .titel {
+        font-size: 16px;
+    }
+
+    .prijs {
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 8px 12px; /* Kleinere knop op mobiel */
+    }
+}

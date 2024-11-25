@@ -34,9 +34,9 @@ header {
 }
 
 .header-search-input {
-    width: 100%; /* Maakt de zoekbalk volledig breed */
+    width: 40%; /* Maakt de zoekbalk korter */
     padding: 10px;
-    margin-right: 20px;
+    margin-left: 750px;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
@@ -44,7 +44,7 @@ header {
 /* Ruimte tussen de iconen */
 .icons {
     display: flex;
-    gap: 20px; /* Verhoog de ruimte tussen de iconen */
+    gap: 60px; /* Verhoog de ruimte tussen de iconen */
     align-items: center;
 }
 

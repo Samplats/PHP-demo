@@ -21,7 +21,7 @@ try {
     // Controleer of er een zoekopdracht is
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = "%" . $_GET['search'] . "%";
-        $stmt = $conn->prepare("SELECT id, nam, price, image_url FROM products WHERE nam LIKE :search");
+        $stmt = $conn->prepare("SELECT id, nam, price, image_url, description FROM products WHERE nam LIKE :search");
         $stmt->bindParam(':search', $search, PDO::PARAM_STR);
     } else {
         // Geen zoekopdracht, haal alle producten op

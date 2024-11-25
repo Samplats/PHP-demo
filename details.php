@@ -54,6 +54,8 @@ try {
             <div class="product-info">
                 <h2><?php echo htmlspecialchars($product['nam']); ?></h2>
                 <p class="product-price">Prijs: €<?php echo number_format($product['price'], 2); ?></p>
+                <h2><?php echo htmlspecialchars($product['description']); ?></h2>
+
              
                 <button class="btn">Voeg toe aan winkelwagentje</button>
             </div>

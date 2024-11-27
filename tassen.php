@@ -21,11 +21,11 @@ try {
     // Controleer of er een zoekopdracht is
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = "%" . $_GET['search'] . "%";
-        $stmt = $conn->prepare("SELECT id, nam, price, image_url, description FROM products WHERE nam LIKE :search");
+        $stmt = $conn->prepare("SELECT id, nam, price, image_url, description FROM products WHERE nam LIKE :search AND category = 'schoenen'");
         $stmt->bindParam(':search', $search, PDO::PARAM_STR);
     } else {
-        // Geen zoekopdracht, haal alle producten op
-        $stmt = $conn->prepare("SELECT id, nam, price, image_url FROM products");
+        // Geen zoekopdracht, haal alleen de schoenen op
+        $stmt = $conn->prepare("SELECT id, nam, price, image_url FROM products WHERE categorie_id = 'basketbaltassen'");
     }
 
     $stmt->execute();
@@ -45,15 +45,15 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/homepage.css">
-    <title>Webshop</title>
+    <link rel="stylesheet" href="css/homepage.css"> <!-- Verwijst naar dezelfde CSS als homepage -->
+    <title>Tassen Webshop</title>
 </head>
 <body>
     <header>
         <h1>GearUp</h1>
         <!-- Zoekfunctie container voor middenuitlijning -->
         <div class="header-search-container">
-            <form method="GET" action="index.php" class="header-search-form">
+            <form method="GET" action="tassen.php" class="header-search-form">
                 <input type="text" name="search" placeholder="Zoeken..." class="header-search-input">
             </form>
         </div>

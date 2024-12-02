@@ -116,7 +116,7 @@ if ($isAdmin && isset($_POST['update_product'])) {
         </div>
 
         <div class="icons">
-            <a href="account.php">
+            <a href="profiel.php">
                 <img src="images/user.svg" alt="Gebruiker">
             </a>
             <img src="images/shopping-bag.svg" alt="Winkelmandje">
@@ -147,7 +147,7 @@ if ($isAdmin && isset($_POST['update_product'])) {
                                     <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                                     <button type="submit" class="btn delete">Verwijderen</button>
                                 </form>
->
+
                                 <form method="POST" action="index.php" class="update-form">
                                     <input type="hidden" name="update_product" value="1">
                                     <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">

@@ -12,10 +12,10 @@ class User {
         $stmt = $this->db->prepare("SELECT * FROM inloggen WHERE email = :email");
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
-        
+
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && $password === $user['passwoord']) { // Wachtwoord check
+        if ($user && password_verify($password, $user['password'])) { // Gebruik password_verify
             // Sla gebruikersgegevens op in de sessie
             $_SESSION['loggedin'] = true;
             $_SESSION['user_id'] = $user['id'];
@@ -25,6 +25,28 @@ class User {
         } else {
             return false;
         }
+    }
+
+    // Controleer of het huidige wachtwoord klopt
+    public function checkPassword($email, $currentPassword) {
+        $stmt = $this->db->prepare("SELECT password FROM inloggen WHERE email = :email");
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($currentPassword, $user['password'])) { // Gebruik password_verify
+            return true;
+        }
+        return false;
+    }
+
+    // Update het wachtwoord naar een nieuw wachtwoord
+    public function updatePassword($email, $newPassword) {
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT); // Hash het nieuwe wachtwoord
+        $stmt = $this->db->prepare("UPDATE inloggen SET password = :password WHERE email = :email");
+        $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR); // Gebruik de gehashte versie
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        return $stmt->execute();
     }
 
     // Controleer of de gebruiker ingelogd is

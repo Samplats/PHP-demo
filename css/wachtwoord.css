@@ -1,0 +1,111 @@
+/* Algemene body styling */
+body {
+    background-color: #333; /* Donkere achtergrond */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #fff; /* Witte tekst als standaard */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Centraal op het scherm */
+}
+
+/* Container voor wachtwoord wijzigen formulier */
+.container {
+    background-color: #f4f4f4; /* Lichte achtergrond */
+    color: #333; /* Donkere tekst voor contrast */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px; /* Max breedte voor de container */
+}
+
+/* Titel */
+h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Succes- en foutberichten */
+.success, .error {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Formulier styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Labels */
+form label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Invoervelden voor wachtwoord */
+form input[type="password"] {
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+}
+
+form input[type="password"]:focus {
+    border-color: #ff4500; /* Zelfde kleur als de knoppen */
+    outline: none;
+}
+
+/* Knoppen */
+form button {
+    background-color: #ff4500;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+form button:hover {
+    background-color: #cc3700;
+    transform: scale(1.05);
+}
+
+/* Link naar overzicht */
+.container a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #ff4500; /* Zelfde kleur als de knoppen */
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.container a:hover {
+    text-decoration: underline;
+}

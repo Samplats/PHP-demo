@@ -1,90 +1,82 @@
+/* Algemene body styling */
 body {
-    background-image: url(../images/Leonardo_Phoenix_kijk_kan_je_voor_een_background_image_maken_v_1.jpg);
-    background-color: #1F2020;
-    background-repeat: no-repeat;
-    background-size: contain; /* Verklein de afbeelding om volledig in het scherm te passen */
-    background-position: center center;
-    font-family: 'Arial', sans-serif;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background-color: #333; /* Donkere achtergrond */
+    font-family: Arial, sans-serif;
     margin: 0;
+    padding: 0;
+    color: #fff; /* Witte tekst als standaard */
 }
 
+/* Login Container Styling */
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparante achtergrond */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
 
-.form {
-    background-color: rgba(250, 255, 255, 0.2); /* Iets minder doorzichtig voor beter contrast */
-    border: none; /* Geen grijze kader voor een schoner uiterlijk */
-    border-radius: 15px; /* Iets afgeronde hoeken */
-    padding: 30px; /* Meer ruimte binnenin het formulier */
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8); /* Diepere schaduw voor diepte */
-    width: 90%; /* Formulierbreedte aanpassen */
-    max-width: 400px; /* Max breedte van het formulier */
-    display: flex; /* Flexbox om de inhoud te centreren */
-    flex-direction: column; /* Alle elementen onder elkaar */
-    align-items: center; /* Elementen in het midden uitlijnen */
+/* Formulier Styling */
+h2 {
+    text-align: center;
+    color: #fff;
 }
 
 .form__field {
-    width: 100%; /* Breedte van de form velden 100% van de container */
-    margin-bottom: 20px; /* Ruimte tussen de velden vergroten */
+    margin-bottom: 15px;
 }
 
 .form__field label {
     display: block;
-    margin-bottom: 8px; /* Iets meer ruimte boven labels */
-    font-weight: bold;
-    color: #333; /* Donkere kleur voor labels voor beter contrast */
-    text-align: left; /* Labels links uitlijnen */
+    font-size: 14px;
+    color: #fff;
 }
 
-.form__field input[type="text"],
-.form__field input[type="password"] {
-    width: 100%; /* Volledige breedte van de container */
-    padding: 12px; /* Meer padding voor comfort */
-    border: 1px solid #ccc; /* Lichte rand om velden */
-    border-radius: 8px; /* Hoekafgeronde invoervelden */
-    font-size: 16px;
+.form__field input {
+    width: 100%;
+    padding: 10px;
     margin-top: 5px;
-    transition: border-color 0.3s; /* Overgang voor borderkleur */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #444;
+    color: #fff;
 }
 
-.form__field input[type="text"]:focus,
-.form__field input[type="password"]:focus {
-    border-color: #ff0000; /* Rode rand bij focus */
-    outline: none; /* Geen standaard focusoutline */
+.form__field input:focus {
+    border-color: #ff4500;
+    outline: none;
 }
 
+/* Knop stijlen */
 .btn--primary {
-    background-color: #ff0000; /* Knopkleur */
+    background-color: #ff4500;
     color: #fff;
     border: none;
-    border-radius: 8px; /* Hoekafgeronde knoppen */
-    padding: 12px; /* Meer padding voor knoppen */
-    font-size: 18px;
+    padding: 12px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    width: 100%; /* Knopbreedte aangepast aan het formulier */
-    transition: background-color 0.3s, transform 0.2s; /* Overgang voor achtergrondkleur en schaling */
-    text-align: center; /* Tekst in de knop centreren */
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
 }
 
 .btn--primary:hover {
-    background-color: #cc0000; /* Donkere kleur bij hover */
-    transform: scale(1.05); /* Kleinere schaling bij hover voor effect */
+    background-color: #cc3700;
+    transform: scale(1.05);
 }
 
-.label__inline {
-    font-size: 14px;
-    color: #fff;
-    margin-left: 5px;
-}
-
-.form__error {
-    background-color: #ff3333;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
+/* Aanmelden link */
+.signup-link {
+    margin-top: 20px;
     text-align: center;
+}
+
+.signup-link a {
+    color: #ff4500; /* Dezelfde kleur als je knoppen */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
 }

@@ -50,36 +50,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in</title>
-    <link rel="stylesheet" href="css/log.css">
+    <title>Inloggen</title>
+    <link rel="stylesheet" href="css/log.css"> <!-- Verwijzing naar de aangepaste CSS voor de login-pagina -->
 </head>
 <body>
-<div class="netflixLogin">
+<div class="login-container">
     <div class="form form--login">
         <form action="" method="post">
-            <h2 class="form__title">Log in</h2>
+            <h2 class="form__title">Inloggen</h2>
             <?php if (isset($error)): ?>
                 <div class="form__error">
-                    <p>Sorry, we can't log you in with that email address and password. Can you try again?</p>
+                    <p>Sorry, we kunnen je niet inloggen met dit e-mailadres en wachtwoord. Probeer het opnieuw.</p>
                 </div>
             <?php endif; ?>
             <div class="form__field">
-                <label for="Email">Email</label>
+                <label for="Email">E-mail</label>
                 <input type="text" name="email" required>
             </div>
             <div class="form__field">
-                <label for="Password">Password</label>
+                <label for="Password">Wachtwoord</label>
                 <input type="password" name="password" required>
             </div>
             <div class="form__field">
-                <input type="submit" value="Log in" class="btn btn--primary">
-                <input type="checkbox" id="rememberMe"><label for="rememberMe" class="label__inline">Remember me</label>
+                <input type="submit" value="Inloggen" class="btn btn--primary">
+                <input type="checkbox" id="rememberMe"><label for="rememberMe" class="label__inline">Onthoud mij</label>
             </div>
         </form>
+
+        <div class="signup-link">
+            <p>Heb je nog geen account? <a href="signup.php">Aanmelden</a></p>
+        </div>
     </div>
 </div>
 </body>

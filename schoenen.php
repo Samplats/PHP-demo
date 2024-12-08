@@ -59,8 +59,12 @@ try {
         </div>
 
         <div class="icons">
-            <img src="images/user.svg" alt="Gebruiker">
+        <a href="profiel.php">
+                <img src="images/user.svg" alt="Gebruiker">
+            </a>
+            <a href="winkelmandje.php">
             <img src="images/shopping-bag.svg" alt="Winkelmandje">
+            </a>
             <a href="logout.php" class="logout">Uitloggen</a>
         </div>
     </header>
@@ -79,7 +83,6 @@ try {
                         <div class="details">
                             <h2 class="titel"><?php echo htmlspecialchars($product['nam']); ?></h2>
                             <p class="prijs">Prijs: €<?php echo number_format($product['price'], 2); ?></p>
-                            <button class="btn">Voeg toe aan winkelwagentje</button>
                         </div>
                     </article>
                 <?php endforeach; ?>

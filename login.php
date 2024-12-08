@@ -1,24 +1,32 @@
 <?php
+session_start();
+// Functie om te controleren of inloggen mogelijk is
 function canLogin($email, $password) {
-    // Verbind met de database
-    $conn = new PDO('mysql:host=localhost;dbname=webshop', 'root', '');
+    try {
+        // Verbind met de database
+        $conn = new PDO('mysql:host=localhost;dbname=webshop', 'root', '');
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Haal de gebruiker op uit de database
-    $statement = $conn->prepare('SELECT * FROM inloggen WHERE email = :email');
-    $statement->bindValue(':email', $email);
-    $statement->execute();
-    $user = $statement->fetch(PDO::FETCH_ASSOC);
+        // Haal de gebruiker op uit de database
+        $statement = $conn->prepare('SELECT * FROM inloggen WHERE email = :email');
+        $statement->bindValue(':email', $email);
+        $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-    // Controleer of de gebruiker bestaat en het wachtwoord correct is
-    if ($user) {
-        if (password_verify($password, $user['password'])) {
-            return $user; // Return de gebruiker met rol
+        // Controleer of de gebruiker bestaat en het wachtwoord correct is
+        if ($user && password_verify($password, $user['password'])) {
+            return $user; // Login succesvol, retourneer gebruikersgegevens
         }
+
+        return false; // Geen match gevonden
+    } catch (PDOException $e) {
+        // Toon foutmelding bij databaseproblemen
+        echo "Er is een fout opgetreden: " . $e->getMessage();
+        return false;
     }
-    return false; // Geen match, login mislukt
 }
 
-// Verwerk de login als er een POST-verzoek is
+// Verwerk de login bij een POST-verzoek
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -26,24 +34,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Probeer in te loggen
     $user = canLogin($email, $password);
     if ($user) {
-        // Start de sessie en sla gebruiker en rol op in de sessie
+        // Start de sessie en sla gebruikersgegevens op
         session_start();
         $_SESSION['loggedin'] = true;
-        $_SESSION['email'] = $email;
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['user_id'] = $user['id'];
         $_SESSION['role'] = $user['role'];
 
-        // Controleer of de gebruiker admin is
-        if ($user['role'] == 1) {
-            $_SESSION['is_admin'] = true; // Admin
-        } else {
-            $_SESSION['is_admin'] = false; // User
-        }
+        // Controleer of de gebruiker een admin is
+        $_SESSION['is_admin'] = ($user['role'] == 1);
 
-        // Redirect naar de juiste pagina op basis van de rol
-        header('Location: index.php'); // Pas dit aan als je een andere pagina hebt voor admins
+        // Redirect naar de indexpagina
+        header('Location: index.php');
         exit;
     } else {
-        // Als de login mislukt, toon een foutmelding
+        // Login mislukt
         $error = true;
     }
 }
@@ -55,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inloggen</title>
-    <link rel="stylesheet" href="css/log.css"> <!-- Verwijzing naar de aangepaste CSS voor de login-pagina -->
+    <link rel="stylesheet" href="css/log.css">
 </head>
 <body>
 <div class="login-container">
@@ -68,16 +73,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             <?php endif; ?>
             <div class="form__field">
-                <label for="Email">E-mail</label>
+                <label for="email">E-mail</label>
                 <input type="text" name="email" required>
             </div>
             <div class="form__field">
-                <label for="Password">Wachtwoord</label>
+                <label for="password">Wachtwoord</label>
                 <input type="password" name="password" required>
             </div>
             <div class="form__field">
                 <input type="submit" value="Inloggen" class="btn btn--primary">
-                <input type="checkbox" id="rememberMe"><label for="rememberMe" class="label__inline">Onthoud mij</label>
+                <input type="checkbox" id="rememberMe">
+                <label for="rememberMe" class="label__inline">Onthoud mij</label>
             </div>
         </form>
 

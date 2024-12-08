@@ -1,25 +1,20 @@
 <?php
 session_start();
 
-// Laad de benodigde klassen
 require_once 'Database.class.php';
 require_once 'User.class.php';
 
-// Maak verbinding met de database
 $db = new Database();
 $conn = $db->connect();
 $userClass = new User($conn);
 
-// Controleer of de gebruiker is ingelogd
 if (!$userClass->isLoggedIn()) {
     header('Location: login.php');
     exit;
 }
 
-// Controleer of de ingelogde gebruiker een admin is
 $isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'];
 
-// Verwerk zoekopdrachten en haal producten op
 try {
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = "%" . $_GET['search'] . "%";
@@ -34,7 +29,7 @@ try {
     echo "Verbinding mislukt: " . $e->getMessage();
 }
 
-// Verwerk product toevoegen
+// Product toevoegen
 if ($isAdmin && isset($_POST['add_product'])) {
     $name = $_POST['name'];
     $price = $_POST['price'];
@@ -56,7 +51,7 @@ if ($isAdmin && isset($_POST['add_product'])) {
     }
 }
 
-// Verwerk product verwijderen
+// Product verwijderen
 if ($isAdmin && isset($_POST['delete_product'])) {
     $product_id = $_POST['product_id'];
 
@@ -70,7 +65,7 @@ if ($isAdmin && isset($_POST['delete_product'])) {
     }
 }
 
-// Verwerk product bijwerken
+// Product bijwerken
 if ($isAdmin && isset($_POST['update_product'])) {
     $product_id = $_POST['product_id'];
     $name = $_POST['name'];
@@ -93,9 +88,23 @@ if ($isAdmin && isset($_POST['update_product'])) {
         $errorMessage = "Alle velden zijn verplicht!";
     }
 }
+
+// Product toevoegen aan winkelmandje
+if (isset($_POST['add_to_cart'])) {
+    $product_id = $_POST['product_id'];
+
+    try {
+        $stmt = $conn->prepare("INSERT INTO winkelmandje (product_id, user_id) VALUES (:product_id, :user_id)");
+        $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+        $stmt->execute();
+        $cartMessage = "Product succesvol toegevoegd aan winkelmandje!";
+    } catch (PDOException $e) {
+        $cartMessage = "Fout bij het toevoegen aan winkelmandje: " . $e->getMessage();
+    }
+}
 ?>
 
-<!-- Include de Navigation class -->
 <?php include('nav.class.php'); ?>
 
 <!DOCTYPE html>
@@ -114,17 +123,17 @@ if ($isAdmin && isset($_POST['update_product'])) {
                 <input type="text" name="search" placeholder="Zoeken..." class="header-search-input">
             </form>
         </div>
-
         <div class="icons">
             <a href="profiel.php">
                 <img src="images/user.svg" alt="Gebruiker">
             </a>
-            <img src="images/shopping-bag.svg" alt="Winkelmandje">
+            <a href="winkelmandje.php">
+                <img src="images/shopping-bag.svg" alt="Winkelmandje">
+            </a>
             <a href="logout.php" class="logout">Uitloggen</a>
         </div>
     </header>
 
-    
     <?php Navigation::render(); ?>
 
     <main>
@@ -138,10 +147,12 @@ if ($isAdmin && isset($_POST['update_product'])) {
                         <div class="details">
                             <h2 class="titel"><?php echo htmlspecialchars($product['nam']); ?></h2>
                             <p class="prijs">Prijs: €<?php echo number_format($product['price'], 2); ?></p>
-                            <button class="btn">Voeg toe aan winkelwagentje</button>
+                            <form method="POST" action="index.php">
+                                <input type="hidden" name="add_to_cart" value="1">
+                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                            </form>
 
                             <?php if ($isAdmin): ?>
-                                
                                 <form method="POST" action="index.php" onsubmit="return confirm('Weet je zeker dat je dit product wilt verwijderen?');">
                                     <input type="hidden" name="delete_product" value="1">
                                     <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
@@ -164,7 +175,6 @@ if ($isAdmin && isset($_POST['update_product'])) {
                 <p>Geen producten gevonden.</p>
             <?php endif; ?>
 
-            
             <?php if ($isAdmin): ?>
                 <section class="add-product">
                     <h2>Nieuw product toevoegen</h2>
@@ -183,6 +193,5 @@ if ($isAdmin && isset($_POST['update_product'])) {
             <?php endif; ?>
         </section>
     </main>
-
 </body>
 </html>

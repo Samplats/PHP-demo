@@ -35,7 +35,7 @@ body {
     transform: scale(1.05); /* Iets groter bij hover */
 }
 
-/* Logout knop styling */
+
 .logout {
     margin-top: 20px;
     color: red;

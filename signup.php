@@ -8,8 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verbind met de database
     $conn = new PDO('mysql:host=localhost;dbname=webshop', 'root', '');
 
-    // Voeg de gebruiker toe aan de database
-    $statement = $conn->prepare('INSERT INTO inloggen (email, password) VALUES (:email, :password)');
+    // Voeg de gebruiker toe aan de database met standaard saldo van 1000
+    $statement = $conn->prepare('INSERT INTO inloggen (email, password, saldo) VALUES (:email, :password, 1000)');
     $statement->bindValue(':email', $email);
     $statement->bindValue(':password', $hashedPassword);
 
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </form>
 
-        <div class="login-link">
+        <div class="signup-link">
             <p>Heb je al een account? <a href="login.php">Inloggen</a></p>
         </div>
     </div>

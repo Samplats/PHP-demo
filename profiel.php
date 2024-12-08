@@ -42,8 +42,7 @@ $userEmail = $_SESSION['email']; // Zorg dat dit overeenkomt met login.php
         <div class="profiel-box">
             <p>Email: <?php echo htmlspecialchars($userEmail); ?></p>
 
-            <!-- Links voor bestellingen en wachtwoord reset -->
-            <p><a href="bestellingen.php" class="btn">Bekijk mijn bestellingen</a></p>
+
             <p><a href="wachtwoord.php" class="btn">Wachtwoord resetten</a></p>
 
         

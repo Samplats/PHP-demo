@@ -1,0 +1,112 @@
+/* Algemene instellingen voor de body en standaard lettertypes */
+body {
+    background-color: #333; /* Achtergrondkleur consistent met de rest van je webshop */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+
+/* Header Stijling */
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding: 15px 0;
+    color: #333;
+    font-size: 1.8em;
+}
+
+/* Tweede koptekst styling */
+h2 {
+    margin: 20px 0;
+    text-align: center;
+    color: #fff;
+}
+
+/* Algemene container styling */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* Stijling voor de tabel */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+thead th {
+    background-color: #555;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #555;
+}
+
+tbody td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #555;
+}
+
+table img {
+    max-width: 80px;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Totaal sectie */
+h2 {
+    margin: 20px auto;
+    font-size: 1.2em;
+}
+
+/* Knoppen stijl */
+form button[type="submit"] {
+    display: block;
+    margin: 20px auto;
+    background-color: #555;
+    color: #fff;
+    padding: 10px 30px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form button[type="submit"]:hover {
+    background-color: #cc3700;
+    transform: scale(1.1);
+}
+
+/* Responsief ontwerp voor mobiele schermen */
+@media (max-width: 768px) {
+    table {
+        font-size: 14px;
+    }
+
+    table td,
+    table th {
+        padding: 8px;
+    }
+
+    form button[type="submit"] {
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    table {
+        font-size: 12px;
+    }
+
+    form button[type="submit"] {
+        padding: 8px 15px;
+    }
+}

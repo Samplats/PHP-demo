@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container">
         <h1>Wachtwoord Wijzigen</h1>
 
-        <!-- Toon succes- of foutberichten -->
+   
         <?php if ($success): ?>
             <p class="success"><?php echo htmlspecialchars($success); ?></p>
         <?php endif; ?>

@@ -1,24 +1,23 @@
 <?php
-// Verwerk de registratie als er een POST-verzoek is
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT); // Wachtwoord hashen voor veiligheid
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // Verbind met de database
+    
     $conn = new PDO('mysql:host=localhost;dbname=webshop', 'root', '');
 
-    // Voeg de gebruiker toe aan de database met standaard saldo van 1000
+    
     $statement = $conn->prepare('INSERT INTO inloggen (email, password, saldo) VALUES (:email, :password, 1000)');
     $statement->bindValue(':email', $email);
     $statement->bindValue(':password', $hashedPassword);
 
     if ($statement->execute()) {
-        // Als registratie succesvol is, redirect naar login-pagina
-        header('Location: login.php');
+       
         exit;
     } else {
-        // Als er een fout is tijdens de registratie, toon een foutmelding
+        
         $error = true;
     }
 }
@@ -30,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aanmelden</title>
-    <link rel="stylesheet" href="css/log.css"> <!-- Verwijzing naar de CSS voor consistente styling -->
+    <link rel="stylesheet" href="css/log.css"> 
 </head>
 <body>
 <div class="login-container">

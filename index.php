@@ -29,7 +29,7 @@ try {
     echo "Verbinding mislukt: " . $e->getMessage();
 }
 
-// Product toevoegen
+
 if ($isAdmin && isset($_POST['add_product'])) {
     $name = $_POST['name'];
     $price = $_POST['price'];
@@ -51,7 +51,7 @@ if ($isAdmin && isset($_POST['add_product'])) {
     }
 }
 
-// Product verwijderen
+
 if ($isAdmin && isset($_POST['delete_product'])) {
     $product_id = $_POST['product_id'];
 
@@ -65,7 +65,7 @@ if ($isAdmin && isset($_POST['delete_product'])) {
     }
 }
 
-// Product bijwerken
+
 if ($isAdmin && isset($_POST['update_product'])) {
     $product_id = $_POST['product_id'];
     $name = $_POST['name'];
@@ -89,7 +89,7 @@ if ($isAdmin && isset($_POST['update_product'])) {
     }
 }
 
-// Product toevoegen aan winkelmandje
+
 if (isset($_POST['add_to_cart'])) {
     $product_id = $_POST['product_id'];
 

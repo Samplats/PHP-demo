@@ -1,30 +1,30 @@
 <?php
 session_start();
 
-// Controleer of de gebruiker is ingelogd
+
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header('Location: login.php');
     exit;
 }
 
-// Databaseverbinding details
+
 $host = 'localhost';
 $dbname = 'webshop';
 $username = 'root';
 $password = '';
 
 try {
-    // Verbind met de database
+ 
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Controleer of er een zoekopdracht is
+    
     if (isset($_GET['search']) && !empty($_GET['search'])) {
         $search = "%" . $_GET['search'] . "%";
         $stmt = $conn->prepare("SELECT id, nam, price, image_url, description FROM products WHERE nam LIKE :search AND category = 'schoenen'");
         $stmt->bindParam(':search', $search, PDO::PARAM_STR);
     } else {
-        // Geen zoekopdracht, haal alleen de schoenen op
+
         $stmt = $conn->prepare("SELECT id, nam, price, image_url FROM products WHERE categorie_id = 'basketballen '");
     }
 
@@ -37,7 +37,7 @@ try {
 }
 ?>
 
-<!-- Include de Navigation class -->
+
 <?php include('nav.class.php'); ?>
 
 <!DOCTYPE html>
@@ -51,7 +51,7 @@ try {
 <body>
     <header>
         <h1>GearUp</h1>
-        <!-- Zoekfunctie container voor middenuitlijning -->
+       
         <div class="header-search-container">
             <form method="GET" action="basketballen.php" class="header-search-form">
                 <input type="text" name="search" placeholder="Zoeken..." class="header-search-input">
@@ -69,7 +69,7 @@ try {
         </div>
     </header>
 
-    <!-- Roep de Navigation class aan voor de navigatiebalk -->
+    
     <?php Navigation::render(); ?>
 
     <main>

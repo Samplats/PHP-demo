@@ -1,12 +1,12 @@
 <?php
 class Database {
-    private $host = 'localhost'; // Database host
-    private $dbname = 'webshop'; // Naam van je database
-    private $username = 'root'; // Database-gebruiker
-    private $password = ''; // Database-wachtwoord
+    private $host = 'localhost'; 
+    private $dbname = 'webshop'; 
+    private $username = 'root';
+    private $password = ''; 
     private $conn;
 
-    // Maak een verbinding met de database
+   
     public function connect() {
         $this->conn = null;
 

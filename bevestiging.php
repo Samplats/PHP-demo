@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Controleer of de resterende saldo beschikbaar is
+
 if (!isset($_SESSION['resterend_saldo'])) {
     header("Location: index.php");
     exit;

@@ -1,54 +1,54 @@
 <?php
 session_start();
-// Functie om te controleren of inloggen mogelijk is
+
 function canLogin($email, $password) {
     try {
-        // Verbind met de database
+       
         $conn = new PDO('mysql:host=localhost;dbname=webshop', 'root', '');
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Haal de gebruiker op uit de database
+        
         $statement = $conn->prepare('SELECT * FROM inloggen WHERE email = :email');
         $statement->bindValue(':email', $email);
         $statement->execute();
         $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-        // Controleer of de gebruiker bestaat en het wachtwoord correct is
+ 
         if ($user && password_verify($password, $user['password'])) {
-            return $user; // Login succesvol, retourneer gebruikersgegevens
+            return $user; 
         }
 
-        return false; // Geen match gevonden
+        return false; 
     } catch (PDOException $e) {
-        // Toon foutmelding bij databaseproblemen
+       
         echo "Er is een fout opgetreden: " . $e->getMessage();
         return false;
     }
 }
 
-// Verwerk de login bij een POST-verzoek
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Probeer in te loggen
+    
     $user = canLogin($email, $password);
     if ($user) {
-        // Start de sessie en sla gebruikersgegevens op
+
         session_start();
         $_SESSION['loggedin'] = true;
         $_SESSION['email'] = $user['email'];
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['role'] = $user['role'];
 
-        // Controleer of de gebruiker een admin is
+       
         $_SESSION['is_admin'] = ($user['role'] == 1);
 
-        // Redirect naar de indexpagina
+       
         header('Location: index.php');
         exit;
     } else {
-        // Login mislukt
+      
         $error = true;
     }
 }

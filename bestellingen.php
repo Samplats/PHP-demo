@@ -1,21 +1,21 @@
 <?php
 session_start();
 
-// Laad de database-klasse
+
 require_once 'Database.class.php';
 
-// Maak verbinding met de database
+
 $db = new Database();
 $conn = $db->connect();
 
-// Controleer of de gebruiker is ingelogd
+
 if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
     header('Location: login.php');
     exit;
 }
 
-// Haal de bestellingen van de ingelogde gebruiker op
-$inloggen_id = $_SESSION['inloggen_id']; // Haal de ingelogde gebruiker op
+
+$inloggen_id = $_SESSION['inloggen_id']; 
 $stmt = $conn->prepare('SELECT * FROM bestellingen WHERE inloggen_id = :inloggen_id ORDER BY datum DESC');
 $stmt->bindValue(':inloggen_id', $inloggen_id);
 $stmt->execute();

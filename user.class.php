@@ -54,16 +54,16 @@ class User {
         return isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
     }
 
-    // Controleer of de gebruiker een admin is
+   
     public function isAdmin() {
         return isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === true;
     }
 
-    // Log de gebruiker uit
+
     public function logout() {
         session_start();
-        $_SESSION = array(); // Vernietig alle sessievariabelen
-        session_destroy(); // Vernietig de sessie
+        $_SESSION = array(); 
+        session_destroy(); 
     }
 }
 ?>

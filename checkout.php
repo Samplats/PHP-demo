@@ -1,26 +1,24 @@
 <?php
 session_start();
 
-// Laad de database-klasse
 require_once 'database.class.php';
 $db = new Database();
 $conn = $db->connect();
 
-// Controleer of de gebruiker is ingelogd
+
 if (!isset($_SESSION['user_id'])) {
     echo "<h1>Je bent niet ingelogd!</h1>";
     echo "<a href='login.php'>Login hier</a>";
     exit;
 }
 
-// Controleer of er producten in de winkelmand zitten
 if (empty($_SESSION['cart'])) {
     echo "<h1>Je winkelmandje is leeg.</h1>";
     echo "<a href='index.php'>Verder winkelen</a>";
     exit;
 }
 
-// Haal productgegevens uit de database
+
 $product_ids = array_keys($_SESSION['cart']);
 $placeholders = implode(',', array_fill(0, count($product_ids), '?'));
 
@@ -28,7 +26,7 @@ $stmt = $conn->prepare("SELECT * FROM products WHERE id IN ($placeholders)");
 $stmt->execute($product_ids);
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Bereken totaalprijs
+
 $totaal_prijs = 0;
 foreach ($products as $product) {
     $product_id = $product['id'];
@@ -36,41 +34,40 @@ foreach ($products as $product) {
     $totaal_prijs += $quantity * $product['price'];
 }
 
-// Verwerk de bestelling bij bevestigen
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_order'])) {
     try {
-        // Haal het huidige saldo van de gebruiker op
+   
         $stmt = $conn->prepare("SELECT saldo FROM inloggen WHERE id = :user_id");
         $stmt->bindValue(':user_id', $_SESSION['user_id']);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Controleer of het saldo voldoende is voor de bestelling
         if ($totaal_prijs > $user['saldo']) {
             echo "<h1>Je saldo is onvoldoende voor deze bestelling.</h1>";
             echo "<p>Je hebt een saldo van €" . number_format($user['saldo'], 2) . ", maar je bestelling kost €" . number_format($totaal_prijs, 2) . ".</p>";
-            // Toevoeging: Terug-knop naar index.php
+            
             echo "<a href='index.php'>Terug naar overzicht</a>";
             exit;
         }
 
-        // Update het saldo in de database
+    
         $stmt = $conn->prepare("UPDATE inloggen SET saldo = saldo - :totaal WHERE id = :user_id");
         $stmt->bindValue(':totaal', $totaal_prijs);
         $stmt->bindValue(':user_id', $_SESSION['user_id']);
         $stmt->execute();
 
-        // Haal het resterende saldo op
+      
         $stmt = $conn->prepare("SELECT saldo FROM inloggen WHERE id = :user_id");
         $stmt->bindValue(':user_id', $_SESSION['user_id']);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         $_SESSION['resterend_saldo'] = $user['saldo']; // Sla resterend saldo tijdelijk op in de sessie
 
-        // Leeg de winkelmand
+       
         $_SESSION['cart'] = [];
 
-        // Redirect naar bevestiging
+        
         header("Location: bevestiging.php");
         exit;
     } catch (Exception $e) {
